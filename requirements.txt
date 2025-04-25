@@ -1,0 +1,8 @@
+Flask
+Flask-SocketIO
+eventlet
+Flask-SQLAlchemy
+python-dotenv
+openai
+numpy
+psycopg2-binary

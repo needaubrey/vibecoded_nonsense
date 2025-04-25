@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jargon Duel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="duel">
+            <div class="phrase" id="phrase1">
+                <div class="phrase-text" id="phrase1-text">Loading...</div>
+                <button class="vote-btn" id="vote1"></button>
+            </div>
+            <div class="vs">VS</div>
+            <div class="phrase" id="phrase2">
+                <div class="phrase-text" id="phrase2-text">Loading...</div>
+                <button class="vote-btn" id="vote2"></button>
+            </div>
+        </div>
+        <div class="fixed-nav">
+             <a href="/leaderboard">Leaderboard</a>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/static/game.js"></script>
+</body>
+</html> 

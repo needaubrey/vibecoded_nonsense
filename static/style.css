@@ -1,0 +1,209 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a; /* Darker background */
+    color: #e0e0e0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column; /* Stack duel and potential nav */
+    justify-content: center; /* Center the duel vertically */
+    align-items: center;
+}
+
+.duel {
+    display: flex;
+    width: 100%;
+    height: 100%; /* Take full height */
+    align-items: stretch; /* Make columns equal height */
+    justify-content: center;
+    position: relative; /* For positioning VS */
+}
+
+.phrase {
+    flex-basis: 50%; /* Each phrase takes half the width */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center content vertically */
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box; /* Include padding in width/height */
+    position: relative; /* Needed for button positioning? */
+    cursor: pointer; /* Make the whole area clickable */
+    transition: background-color 0.3s ease; /* Add transition for smooth hover */
+}
+
+/* Add distinct backgrounds for visual separation */
+#phrase1 {
+    background-color: #222;
+}
+#phrase2 {
+    background-color: #282828;
+}
+
+/* Enhanced Hover effect - Using ID selectors for specificity */
+#phrase1:hover, 
+#phrase2:hover {
+    background-color: #555; /* Lighter gray for hover */
+    /* outline: 3px solid #ffb300; <- Removed outline */
+    /* Optional: Add a subtle scale or shadow effect on hover */
+    /* transform: scale(1.01); */ 
+    /* box-shadow: 0 5px 15px rgba(0,0,0,0.3); */
+}
+
+/* Click animation class */
+.phrase-clicked {
+    background-color: #28a745 !important; /* Green background - !important TO override hover */
+    transition: background-color 0.1s ease-in-out; /* Faster transition for click */
+}
+
+.phrase-text {
+    font-size: 3.5vw; /* Responsive font size */
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 30px; 
+    word-wrap: break-word;
+    max-width: 80%; /* Prevent text getting too wide */
+}
+
+.vote-btn {
+    /* Hide default buttons initially, click handled by phrase div */
+    display: none; 
+}
+
+.vs {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffb300;
+    color: #1a1a1a;
+    font-size: 2vw;
+    font-weight: bold;
+    border-radius: 50%;
+    width: 5vw;
+    height: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 4px solid #1a1a1a; /* Match body background */
+    z-index: 10;
+}
+
+/* Leaderboard Page Specific Styles */
+.leaderboard-container {
+    /* Adjust container for leaderboard page if needed */
+    height: auto; /* Allow container to grow with content */
+    padding: 20px;
+}
+
+.leaderboard-container h1 {
+     text-align: center;
+     color: #ffb300;
+     margin-bottom: 20px;
+}
+
+.leaderboard-container .nav {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Make the table container scrollable */
+.leaderboard-scroll-container {
+    max-height: 70vh; /* Max height relative to viewport height */
+    overflow-y: auto; /* Enable vertical scrollbar when needed */
+    border: 1px solid #333; /* Optional border */
+    border-radius: 8px;
+    background: #222; /* Match table background */
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.5); /* Optional inner shadow */
+}
+
+#leaderboard-table {
+    width: 100%;
+    /* Remove margin/background from table itself, apply to container */
+    /* margin: 20px auto; */ 
+    /* background: #292929; */
+    border-radius: 0; /* Remove radius if container has it */
+    box-shadow: none; /* Remove shadow if container has it */
+    border-collapse: collapse;
+    /* overflow: hidden; <- Remove this from table */
+}
+#leaderboard-table th, #leaderboard-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+#leaderboard-table th {
+    background: #333;
+    color: #ffb300;
+    font-size: 1.1em;
+    font-weight: bold;
+    position: sticky; /* Make header stick during scroll */
+    top: 0;
+    z-index: 1;
+}
+#leaderboard-table tbody tr:last-child td {
+    border-bottom: none;
+}
+#leaderboard-table tbody tr:hover {
+    background-color: #383838;
+}
+
+.leaderboard-container .nav a {
+    color: #ffb300;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* General Nav styles if needed */
+.nav a:hover {
+    text-decoration: underline;
+}
+
+/* Style for the fixed leaderboard link on game page */
+.fixed-nav {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    z-index: 20; /* Ensure it's above other elements */
+}
+
+.fixed-nav a {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffb300;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.2s;
+}
+
+.fixed-nav a:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    text-decoration: none;
+}
+
+/* Responsive adjustments if needed */
+@media (max-width: 768px) {
+    .phrase-text {
+        font-size: 5vw;
+    }
+    .vs {
+        font-size: 3vw;
+        width: 8vw;
+        height: 8vw;
+    }
+    .phrase {
+        padding: 20px;
+    }
+} 

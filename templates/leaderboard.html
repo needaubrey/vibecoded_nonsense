@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard - Jargon Duel</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container leaderboard-container">
+        <h1>Leaderboard</h1>
+        <div class="nav">
+            <a href="/">Back to Game</a>
+        </div>
+        <div class="leaderboard-scroll-container">
+            <table id="leaderboard-table">
+                <thead>
+                    <tr><th>Rank</th><th>Phrase</th><th>Elo</th></tr>
+                </thead>
+                <tbody id="leaderboard-body">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    <script src="/static/leaderboard.js"></script>
+</body>
+</html> 

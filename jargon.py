@@ -91,7 +91,7 @@ def get_or_calculate_similarity_matrix(phrases):
         else:
             print("Warning: Phrase list changed since similarity matrix was saved. Recalculating.")
 
-    print("Calculating similarity matrix (this requires OpenAI API call and may take time)...")
+    print("Calculating similarity matrix (this requires      API call and may take time)...")
     # Fallback to calculation if loading failed or matrix is invalid/outdated
     matrix = calculate_similarity_matrix_internal(phrases)
     if matrix: # Save only if calculation was successful
@@ -260,10 +260,7 @@ def game_loop_cli(phrases, elo_scores):
 
 # --- Main Execution (Removed for GUI) ---
 
-# if __name__ == "__main__":
-#     print("Welcome to Jargon Duel! (CLI Version)")
-#     phrases_list = load_phrases()
-#     elo_scores_dict = load_elo_scores(phrases_list)
-#     game_loop_cli(phrases_list, elo_scores_dict)
+if __name__ == '__main__':
+    socketio.run(app, debug=True, port=5050)
 
         
