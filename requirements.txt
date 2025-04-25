@@ -3,7 +3,7 @@ Flask-SocketIO
 eventlet
 Flask-SQLAlchemy
 python-dotenv
-openai
+# openai # Removed as not needed for deployment
 numpy
 psycopg2-binary
 gunicorn

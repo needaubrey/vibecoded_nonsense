@@ -1,12 +1,17 @@
+import eventlet
+eventlet.monkey_patch()
+
+# --- ALL OTHER IMPORTS GO BELOW ---
+import os
+import random
+import jargon_logic # Assuming this contains load_phrases, load_similarity_matrix, update_elo, INITIAL_ELO
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO, emit, join_room, leave_room
 from flask_sqlalchemy import SQLAlchemy
-import random
-import jargon_logic
-import os
 
+# --- Flask App Setup ---
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'secret!'
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'a_default_secret_key_for_dev') # Use env var or default
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///elo_scores.db'
 db = SQLAlchemy(app)
 socketio = SocketIO(app, async_mode='eventlet')
