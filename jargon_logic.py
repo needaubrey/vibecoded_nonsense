@@ -4,12 +4,12 @@ import numpy as np
 import json
 import random
 from dotenv import load_dotenv
-import openai
+# import openai # Removed as not needed for deployment
 
 load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-if OPENAI_API_KEY:
-    openai.api_key = OPENAI_API_KEY
+# if OPENAI_API_KEY: # Removed as not needed for deployment
+#     openai.api_key = OPENAI_API_KEY # Removed as not needed for deployment
 
 # --- Phrase Loading ---
 def load_phrases(filepath="jargonPhrases.txt"):
