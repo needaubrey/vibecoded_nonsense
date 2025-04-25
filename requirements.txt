@@ -6,3 +6,4 @@ python-dotenv
 openai
 numpy
 psycopg2-binary
+gunicorn
