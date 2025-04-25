@@ -1,0 +1,17 @@
+# Generated files
+elo_scores.json
+similarity_matrix.json
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# VSCode
+.vscode/
+
+# Mac OS
+.DS_Store 
