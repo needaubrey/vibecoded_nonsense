@@ -37,21 +37,60 @@ def get_leaderboard(top_n=200):
     return PhraseElo.query.order_by(PhraseElo.elo.desc()).limit(top_n).all()
 
 def get_weighted_pair():
+    if not PHRASES:
+        print("Error: Cannot generate pair, no phrases loaded.")
+        return None, None
+    if len(PHRASES) < 2:
+        print("Error: Need at least two phrases to generate a pair.")
+        return None, None
+        
     phrase1 = random.choice(PHRASES)
-    similarities = SIMILARITY_MATRIX[phrase1]
+    
+    # If similarity matrix doesn't exist (e.g., on deployment), fallback to random
+    if not SIMILARITY_MATRIX:
+        print("Warning: Similarity matrix not loaded. Using random opponent.")
+        possible_opponents = [p for p in PHRASES if p != phrase1]
+        if not possible_opponents: return phrase1, None # Should not happen
+        phrase2 = random.choice(possible_opponents)
+        return phrase1, phrase2
+        
+    # Proceed with weighted selection if matrix exists
+    try:
+        similarities = SIMILARITY_MATRIX[phrase1]
+    except KeyError:
+        # Phrase somehow not in matrix? Fallback to random.
+        print(f"Warning: Phrase '{phrase1}' not found in similarity matrix. Using random opponent.")
+        possible_opponents = [p for p in PHRASES if p != phrase1]
+        if not possible_opponents: return phrase1, None
+        phrase2 = random.choice(possible_opponents)
+        return phrase1, phrase2
+        
     other_phrases = []
     weights = []
     similarity_exponent = 3
     for phrase, score in similarities.items():
-        if phrase != phrase1:
+        if phrase != phrase1 and phrase in PHRASES: # Ensure phrase is valid
             scaled_score = (score + 1) / 2
-            weight = (scaled_score + 1e-9) ** similarity_exponent
-            other_phrases.append(phrase)
-            weights.append(weight)
+            weight = max(0, scaled_score) ** similarity_exponent
+            if weight > 1e-9:
+                other_phrases.append(phrase)
+                weights.append(weight)
+            
     if not other_phrases or sum(weights) <= 1e-9:
-        phrase2 = random.choice([p for p in PHRASES if p != phrase1])
+        # Fallback if no valid weighted options
+        print(f"Warning: No valid weighted opponents for '{phrase1}'. Using random opponent.")
+        possible_opponents = [p for p in PHRASES if p != phrase1]
+        if not possible_opponents: return phrase1, None
+        phrase2 = random.choice(possible_opponents)
     else:
-        phrase2 = random.choices(other_phrases, weights=weights, k=1)[0]
+        try:
+            phrase2 = random.choices(other_phrases, weights=weights, k=1)[0]
+        except ValueError as e:
+             print(f"Error in random.choices (weights issue?): {e}. Falling back to random.")
+             possible_opponents = [p for p in PHRASES if p != phrase1]
+             if not possible_opponents: return phrase1, None
+             phrase2 = random.choice(possible_opponents)
+             
     return phrase1, phrase2
 
 # --- Routes ---

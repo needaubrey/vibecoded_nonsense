@@ -1,6 +1,5 @@
 # Generated files
 elo_scores.json
-similarity_matrix.json
 
 # Environment variables
 .env
